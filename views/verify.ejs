@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verify</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@6.0.0-alpha.1/dist/css/bootstrap.min.css"
+    rel="stylesheet">
+</head>
+
+<body>
+  <div class="container">
+    <h1>Verify</h1>
+
+    <form action="/verify" method="post" class="w-25" id="form">
+
+      <label for="otp" class="form-label mb-2">otp</label>
+
+      <input
+        type="text"
+        class="form-control mb-3"
+        id="otp"
+        placeholder="123456..."
+        name="otp"
+        maxlength="6"
+        required
+      >
+
+      <input type="email" hidden id="email" name="email">
+
+      <button type="submit" class="btn btn-primary mt-5">
+        Verify
+      </button>
+
+    </form>
+
+    <% if (token) { %>
+    <script>
+      const token = <%= JSON.stringify(token) %>;
+
+        localStorage.setItem("token", token);
+
+        window.location.replace("/get_all_products");
+      </script>
+    <% } %>
+
+  </div>
+
+  <script>
+    const form = document.querySelector("#form");
+
+    form.addEventListener("submit", function () {
+      const email = localStorage.getItem("email");
+
+      document.querySelector("#email").value = email;
+    });
+  </script>
+
+</body>
+</html>
